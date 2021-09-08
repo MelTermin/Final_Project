@@ -31,7 +31,10 @@
   margin:50px 150px;
 }
 
-.items {
+.results {
   margin:50px 150px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
