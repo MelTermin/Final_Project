@@ -2,6 +2,7 @@ import fire from './firebase';
 import React, {useState,useEffect}from 'react'
 import Register from './Components/Register'
 import Home from './Components/Home'
+
 import './App.css';
 
 function App() {

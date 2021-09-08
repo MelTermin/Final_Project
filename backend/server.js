@@ -22,6 +22,18 @@ app.post("/tracker", async(req,res) => {
   }
 })
 
+//to get all todos//
+
+app.get("/tracker", async (req, res) => {
+  try {
+    const allTrackerItem = await pool.query("SELECT * FROM trackerlist");
+    res.json(allTrackerItem.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
 //to update the tracker item//
 app.put("/tracker/:id", async(req,res) => {
   try {

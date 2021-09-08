@@ -6,3 +6,32 @@
   background: #6897bb;
   color:white;
 }
+
+.nav-links {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+ 
+  text-decoration: none;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.tracker label  {
+  display: block;
+  
+}
+
+.tracker {
+  margin:50px 150px;
+}
+
+.items {
+  margin:50px 150px;
+}
+
