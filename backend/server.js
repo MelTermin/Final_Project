@@ -9,25 +9,37 @@ app.use(cors())
 app.use(express.json())
 
 //routes
-//insert item//
+//create item//
 app.post("/tracker", async(req,res) => {
   try {
     const {exercise,repetition,weight,duration}= req.body
     console.log(req.body)
-    const newTrackerList= await pool.query("INSERT INTO trackerlist (exercise,repetition,weight,duration) VALUES($1,$2,$3,$4)", [exercise,repetition,weight,duration])
-    res.json(newTrackerList)
+    const newTrackerList= await pool.query("INSERT INTO trackerlist (exercise,repetition,weight,duration) VALUES($1,$2,$3,$4) RETURNING *", [exercise,repetition,weight,duration])
+    res.status(200).json({
+      status: "success",
+      results: newTrackerList.rows.length,
+      data: {
+        trackerItem: newTrackerList.rows[0],
+      },
+    })
   } catch(err) {
     console.error(err.message)
 
   }
 })
 
-//to get all todos//
+//to get all tracker item//
 
 app.get("/tracker", async (req, res) => {
   try {
     const allTrackerItem = await pool.query("SELECT * FROM trackerlist");
-    res.json(allTrackerItem.rows);
+    res.status(200).json({
+      status: "success",
+      results: allTrackerItem.rows.length,
+      data: {
+        trackerItem: allTrackerItem.rows,
+      },
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -37,10 +49,16 @@ app.get("/tracker", async (req, res) => {
 //to update the tracker item//
 app.put("/tracker/:id", async(req,res) => {
   try {
-    const {id}=req.params
+    const id = parseInt(req.params.id);
+    console.log(id);
     const {exercise,repetition,weight,duration}= req.body
-    const updateTrackerItem= await pool.query("UPDATE trackerlist SET exercise= $1, repetition=$2, weight=$3 ,duration=$4 WHERE tracker_id=$5",[exercise,repetition,weight,duration,id])
-    res.json("tracker item is updated")
+    const updateTrackerItem= await pool.query("UPDATE trackerlist SET exercise= $1, repetition=$2, weight=$3 ,duration=$4 WHERE id=$5",[exercise,repetition,weight,duration,id])
+    res.status(200).json({
+      status: "succes",
+      data: {
+        trackerItem: updateTrackerItem.rows[0],
+      },
+    })
 
   }catch(err) {
     console.log(err.message)
@@ -50,14 +68,34 @@ app.put("/tracker/:id", async(req,res) => {
 //delete item//
 app.delete("/tracker/:id", async(req,res) => {
   try {
-    const {id}=req.params
-    const deleteTrackerItem= await pool.query("DELETE from trackerlist where tracker_id=$1", [id])
-    res.json("tracker item is deleted")
+    
+    const deleteTrackerItem= await pool.query("DELETE from trackerlist where id=$1", [req.params.id])
+    res.status(204).json("deleted")
+  
   }catch (err) {
     console.log(err.message)
   }
 })
 
+//get a tracker//
+app.get("/tracker/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const tracker = await pool.query("SELECT * FROM trackerlist WHERE id = $1", [
+      id
+    ]);
+
+    res.status(200).json({
+      status: "succes",
+      data: {
+        trackerItem: tracker.rows[0],
+        
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
 
 

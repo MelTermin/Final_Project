@@ -87,7 +87,7 @@ function App() {
   return (
     <div >
         {user ? ( 
-   <Home firstName= {firstName} handleLogout= {handleLogout}/>  ): (
+   <Home  handleLogout= {handleLogout}/>  ): (
     
     <Register firstName= {firstName} lastName= {lastName} setFirstName= {setFirstName} setLastName= {setLastName}
     email= {email} password= {password}

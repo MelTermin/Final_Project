@@ -1,9 +1,10 @@
 import React from 'react'
 import {useState} from 'react'
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import { Button,Modal,Form } from 'react-bootstrap';
+
+import axios from 'axios'
 
 function Edit({item}) {
+
 
 console.log(item)
 
@@ -17,28 +18,28 @@ const [duration,setDuration]=useState(item.duration)
 const updateDescription = async e => {
   e.preventDefault();
   try {
-    const body = { exercise,repetition,weight,duration };
-    const response = await fetch(
-      `http://localhost:4000/tracker/${item.tracker_id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      }
-    );
-
-    // window.location = "/";
+    axios.put(`http://localhost:4000/tracker/${item.id}`, {
+      exercise,repetition,weight,duration
+    }).then (response=> {
+      console.log(response)
+      
+    })
+    
   } catch (err) {
     console.error(err.message);
   }
 };
+
+
+
+
   return (
     <div>
             <button
         type="button"
         class="btn btn-warning"
         data-toggle="modal"
-        data-target={`#id${item.tracker_id}`}
+        data-target={`#id${item.id}`}
       >
         Edit
       </button>
@@ -48,7 +49,7 @@ const updateDescription = async e => {
       */}
       <div
         class="modal"
-        id={`id${item.tracker_id}`}
+        id={`id${item.id}`}
         
       >
         <div class="modal-dialog">
@@ -104,9 +105,9 @@ const updateDescription = async e => {
                 type="button"
                 class="btn btn-warning"
                 data-dismiss="modal"
-                onClick={e => updateDescription(e)}
+                onClick={(e) => updateDescription(e)}
               >
-                Edit
+                Submit
               </button>
               <button
                 type="button"

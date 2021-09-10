@@ -1,43 +1,40 @@
 import React from 'react'
 import ListItem from './ListItem'
-import {useState} from 'react'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import {useState,useContext} from 'react'
+import {WorkoutContext} from '../context/WorkoutContext'
+import axios from 'axios';
+
 
 
 function Form() {
+const {addWorkoutItem}=useContext(WorkoutContext)
 
 const [exercise, setExercise]= useState("")
 const [repetition,setRepition]=useState("")
 const [weight,setWeight]=useState("")
 const [duration,setDuration]=useState("")
+const [value, onChange] = useState(new Date());
 
-
-const handleSubmit = async e => {
+const handleSubmit = (e)=> {
   e.preventDefault()
-  try {
-    const body= {exercise,repetition,weight,duration}
-    const response= await fetch("http://localhost:4000/tracker", {
-      method:'POST',
-      headers: {
-        'Content-type':'application/json'
-      },
-      body:JSON.stringify(body)
-    });
+  axios.post("http://localhost:4000/tracker", {
+    exercise,repetition,weight,duration
+  }).then (response=> {
     console.log(response)
-   
-    
-  
-  } catch(err) {
-    console.error(err.message)
-  }
-  setExercise("");
-  setRepition("");
-  setWeight("");
+    addWorkoutItem(response.data.data.trackerItem)
+  })
+  setWeight("")
   setDuration("")
+  setExercise("")
+  setRepition("")
 }
-  return (
-    <div>
-      
 
+
+  return (
+    <div className="home-container">
+      
       <div className="tracker">
         <h1>Form</h1>
         
@@ -54,10 +51,18 @@ const handleSubmit = async e => {
         <input type="number" value= {duration} name="duration" onChange={e => setDuration(e.target.value)}></input>
 
         <br></br>
-        <button onClick= {handleSubmit}>ADD</button>
+        <button onClick= {handleSubmit} >ADD</button>
 
       </div>
+       
+       <div className="calender" >
+      <Calendar
+        onChange={onChange}
+        value={value}
+      />
+       </div>
       <ListItem ></ListItem>
+
     </div>
   )
 }

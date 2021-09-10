@@ -7,9 +7,13 @@ function Navbar(props) {
   return (
     <div className="navbar">
    <ul className="nav-links">
+
    <Link className="link" to="/" >
      <h1>Workout Tracker App</h1></Link>
-    <p>Welcome,{firstName}</p>
+
+     <Link className="link" to="/form" >
+     <li>Add Measurements</li></Link>
+   
   
     <Link className="link" to="/workout" >
       <li>Workout</li>

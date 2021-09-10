@@ -1,3 +1,6 @@
+
+
+
 .navbar {
   display:flex;
   justify-content:space-around;
@@ -26,8 +29,12 @@
   display: block;
   
 }
+.home-container {
+  display:flex;
+}
 
 .tracker {
+  
   margin:50px 150px;
 }
 
@@ -38,3 +45,114 @@
   justify-content: space-between;
 }
 
+/* .box {
+  max-width: 400px;
+  min-height: 400px;
+  box-shadow: 0px 1px 5px 3px steelblue;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 10px 60px;
+  display: inline-block;
+} */
+
+.workout-container {
+  /* display: flex;
+  flex-direction: row;
+  height: 350px;
+  padding: 10px 0;
+
+  margin: 10px; */
+  max-width: 500px;
+  min-height: 500px;
+  box-shadow: 0px 1px 5px 3px steelblue;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 10px 90px;
+  display: inline-block;
+  text-align:center;
+}
+
+.gif {
+  margin-right:10px;
+  
+ 
+}
+
+/* .workout-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width:100px;
+  height:100px;
+ 
+} */
+
+
+.header{
+display:flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+align-self: center;
+border: 2px solid green;
+
+}
+
+.countdown-container {
+  display:flex;
+  justify-content: space-between;
+  border:2px solid salmon;
+}
+
+
+.loader1 {
+  display:inline-block;
+  font-size:0px;
+  padding:0px;
+}
+.loader1 span {
+  vertical-align:middle;
+  border-radius:100%;
+  
+  display:inline-block;
+  width:10px;
+  height:10px;
+  margin:3px 2px;
+  -webkit-animation:loader1 0.8s linear infinite alternate;
+  animation:loader1 0.8s linear infinite alternate;
+}
+.loader1 span:nth-child(1) {
+  -webkit-animation-delay:-1s;
+  animation-delay:-1s;
+ background:#5879a8;
+}
+.loader1 span:nth-child(2) {
+  -webkit-animation-delay:-0.8s;
+  animation-delay:-0.8s;
+  background:#5879a8;
+}
+.loader1 span:nth-child(3) {
+  -webkit-animation-delay:-0.26666s;
+  animation-delay:-0.26666s;
+  background:#5879a8;
+}
+.loader1 span:nth-child(4) {
+  -webkit-animation-delay:-0.8s;
+  animation-delay:-0.8s;
+  background:#5879a8;
+ 
+}
+.loader1 span:nth-child(5) {
+  -webkit-animation-delay:-1s;
+  animation-delay:-1s;
+  background:#5879a8;
+}
+
+@keyframes loader1 {
+  from {transform: scale(0, 0);}
+  to {transform: scale(1, 1);}
+}
+@-webkit-keyframes loader1 {
+  from {-webkit-transform: scale(0, 0);}
+  to {-webkit-transform: scale(1, 1);}
+}

@@ -6,11 +6,11 @@ function Register(props) {
     <div>
       <h1>Register</h1>
       
-      <label>First Name</label>
+      {/* <label>First Name</label>
       <input type="text" value= {firstName} onChange= {(e)=>setFirstName(e.target.value)} ></input>
 
       <label>Last Name</label>
-      <input type="text" value= {lastName} onChange= {(e)=>setLastName(e.target.value)}></input>
+      <input type="text" value= {lastName} onChange= {(e)=>setLastName(e.target.value)}></input> */}
       
       <label>Email</label>
       <input type="text" value= {email} onChange= {(e)=> setEmail(e.target.value)}></input>
