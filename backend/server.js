@@ -1,12 +1,17 @@
 const express= require ('express')
 const cors= require ('cors')
 const env=require('dotenv')
+
 const pool= require("./modules/db")
 const app=express()
 env.config();
 
 app.use(cors())
 app.use(express.json())
+
+
+
+
 
 //routes
 //create item//
@@ -46,24 +51,7 @@ app.get("/tracker", async (req, res) => {
 });
 
 
-//to update the tracker item//
-app.put("/tracker/:id", async(req,res) => {
-  try {
-    const id = parseInt(req.params.id);
-    console.log(id);
-    const {exercise,repetition,weight,duration}= req.body
-    const updateTrackerItem= await pool.query("UPDATE trackerlist SET exercise= $1, repetition=$2, weight=$3 ,duration=$4 WHERE id=$5",[exercise,repetition,weight,duration,id])
-    res.status(200).json({
-      status: "succes",
-      data: {
-        trackerItem: updateTrackerItem.rows[0],
-      },
-    })
 
-  }catch(err) {
-    console.log(err.message)
-  }
-})
 
 //delete item//
 app.delete("/tracker/:id", async(req,res) => {
@@ -96,6 +84,50 @@ app.get("/tracker/:id", async (req, res) => {
     console.error(err.message);
   }
 });
+
+//to update the tracker item//
+app.put("/tracker/:id", async(req,res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const {exercise,repetition,weight,duration}= req.body
+
+    const updateTrackerItem= await pool.query("UPDATE trackerlist SET exercise= $1, repetition=$2, weight=$3 ,duration=$4 WHERE id=$5 returning *",[ exercise,repetition,weight,duration,id])
+    res.status(200).json({
+      status: "succes",
+      data: {
+        trackerItem: updateTrackerItem.rows[0],
+        
+      },
+    });
+  
+
+  }catch(err) {
+    console.log(err.message)
+  }
+})
+
+//create contact//
+app.post("/contactform", async(req,res) => {
+  try {
+    const {firstname,lastname,email,message}= req.body
+    console.log(req.body)
+    const contactFormDetails= await pool.query("INSERT INTO contactform (firstname,lastname,email,message) VALUES($1,$2,$3,$4) RETURNING *", [firstname,lastname,email,message])
+    
+
+    res.status(200).json({
+      status: "success",
+      results: contactFormDetails.rows.length,
+      data: {
+        contactItem: contactFormDetails.rows[0],
+      },
+    })
+  } catch(err) {
+    console.error(err.message)
+
+  }
+
+  
+})
 
 
 

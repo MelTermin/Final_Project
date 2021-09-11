@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 function Navbar(props) {
-  const {handleLogout,firstName}= props
+  const {handleLogout}= props
 
   return (
     <div className="navbar">

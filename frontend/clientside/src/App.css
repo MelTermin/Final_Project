@@ -156,3 +156,11 @@ border: 2px solid green;
   from {-webkit-transform: scale(0, 0);}
   to {-webkit-transform: scale(1, 1);}
 }
+
+form label {
+  display: block;
+}
+
+.message {
+  display:none;
+}

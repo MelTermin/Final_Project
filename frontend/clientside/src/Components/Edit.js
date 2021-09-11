@@ -1,12 +1,12 @@
 import React from 'react'
-import {useState} from 'react'
-
+import {useState,useEffect,useContext} from 'react'
 import axios from 'axios'
+import {WorkoutContext} from '../context/WorkoutContext'
 
 function Edit({item}) {
 
+  const {details,setDetails}=useContext(WorkoutContext)
 
-console.log(item)
 
 const [exercise, setExercise]= useState(item.exercise)
 const [repetition,setRepition]=useState(item.repetition)
@@ -15,10 +15,11 @@ const [duration,setDuration]=useState(item.duration)
 
 
 
-const updateDescription = async e => {
-  e.preventDefault();
+const updateDescription = async (id) => {
+ 
+  console.log(id)
   try {
-    axios.put(`http://localhost:4000/tracker/${item.id}`, {
+    axios.put(`http://localhost:4000/tracker/${id}`, {
       exercise,repetition,weight,duration
     }).then (response=> {
       console.log(response)
@@ -30,6 +31,13 @@ const updateDescription = async e => {
   }
 };
 
+// useEffect (()=> {
+//   axios.get("http://localhost:4000/tracker").then(response=> {
+//     console.log(response)
+    
+//   })
+//  }, []);
+ 
 
 
 
@@ -105,7 +113,7 @@ const updateDescription = async e => {
                 type="button"
                 class="btn btn-warning"
                 data-dismiss="modal"
-                onClick={(e) => updateDescription(e)}
+                onClick={() => updateDescription(item.id)}
               >
                 Submit
               </button>

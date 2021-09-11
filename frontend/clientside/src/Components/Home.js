@@ -18,7 +18,7 @@ function Home() {
       <Switch>
       <Route path="/"  exact component= {Main}/>
         <Route path={["/form", "/tracker","/tracker/:id", "/tracker"]} exact component= {Form}/>
-        <Route path="/contact"  exact component= {Contact} />
+        <Route path={["/contact", "/contactform"]}  exact component= {Contact} />
         <Route path="/workout"  exact component= {Workout} />
 
       </Switch>
